@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug FastAPI app",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "app.main",
+            "env": {
+                "DB_HOST": "localhost",
+            },
+            "jinja": true,
+            "justMyCode": true
+        }
+    ]
+}

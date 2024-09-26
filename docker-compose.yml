@@ -1,0 +1,50 @@
+services:
+  database:
+    build:
+      context: .
+      dockerfile: docker/database/Dockerfile
+
+    container_name: database
+
+    env_file:
+      - .env
+
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+      - PGPORT=${DB_PORT}
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+
+    networks:
+      - myNetwork
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+
+    container_name: app
+
+    env_file:
+      - .env
+
+    ports:
+      - "${APP_PORT}:8000"
+
+    networks:
+      - myNetwork
+
+    depends_on:
+      - database
+
+volumes:
+  db_data:
+  
+networks:
+  myNetwork:
