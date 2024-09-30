@@ -45,7 +45,8 @@ async def product_list(
 
 
 @router.post("",
-             response_model=S_ProductFull
+             response_model=S_ProductFull,
+             status_code=201
              )
 async def create_product(
     new_product: S_Product,
@@ -100,7 +101,9 @@ async def update_product_info(
     return result.to_schema()
 
 
-@router.delete("/{id}")
+@router.delete("/{id}",
+               status_code=204
+               )
 async def delete_product_by_id(
     id: int,
     db_repo: D_DbRepo

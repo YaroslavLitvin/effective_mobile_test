@@ -1,6 +1,7 @@
 from typing import Optional
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 
 
 class Config(BaseSettings):
@@ -35,13 +36,9 @@ class Config(BaseSettings):
             database=self.db_name,
         )
         dsn = uri.render_as_string(hide_password=False)
-        # print('-------------------------------------------------')
-        # print(f'{dsn=}')
-        # print('-------------------------------------------------')
         return dsn
 
-    class Config:
-        validate_assignment = False
+    model_config = ConfigDict(validate_assignment=False)
 
 
 # Загружаем переменные из файла .env, если он существует
