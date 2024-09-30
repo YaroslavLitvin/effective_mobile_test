@@ -27,7 +27,7 @@ async def test_product_list_empty(ac: AsyncClient):
 
 
 @pytest.mark.asyncio(loop_scope="session")
-async def test_create_product(ac: AsyncClient):
+async def test_create_product(ac: AsyncClient, expected_id: int = 1):
     print(f'test_create_product {ac=}')
 
     response = await ac.post(
@@ -36,7 +36,7 @@ async def test_create_product(ac: AsyncClient):
     )
     assert response.status_code == 201
     product_result = response.json()
-    assert product_result['id'] == 1
+    assert product_result['id'] == expected_id
     del product_result['id']
     assert product_result == TEST_PRODUCT.model_dump()
 

@@ -56,7 +56,8 @@ async def order_statuses(
 
 
 @router.post("",
-             response_model=S_OrderFull
+             response_model=S_OrderFull,
+             status_code=201
              )
 async def create_order(
     new_order: S_OrderInput,
